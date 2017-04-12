@@ -1,0 +1,62 @@
+#include <iostream>
+using namespace std;
+
+#include <stack>
+
+template <class T>
+class min_stack
+{
+public:
+	void  push(const T& x)
+	{
+		_num.push(x);
+		if (!_min.empty())
+		{
+			T tmp = _min.top();
+			if (x < tmp)
+			{
+				_min.push(x);
+			}
+			else
+			{
+				_min.push(tmp);
+			}
+		}
+		else
+		{
+			_min.push(x);
+		}
+	}
+	void pop()
+	{
+		_num.pop();
+		_min.pop();
+	}
+	 T retmin()
+	{
+		return _min.top();
+	}
+private:
+	stack<T> _num;
+	stack<T> _min;
+};
+
+void test()
+{
+	min_stack<int> m;
+	m.push(3);
+	m.push(6);
+	m.push(4);
+	m.push(9);
+
+	int ret = m.retmin();
+
+	cout << "min = " << ret << endl;
+
+}
+
+int main()
+{
+	test();
+	return 0;
+}
